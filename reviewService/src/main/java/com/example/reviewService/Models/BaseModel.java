@@ -12,7 +12,7 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-@MappedSuperclass
+@MappedSuperclass  // it means : no table for parent class , one table of each child class having this parent property
 public abstract class BaseModel {
     // this class actually helps us to use existing property in our tables which will be same in all ,so we are using inheritance
     // but SQL does not know about inheritance than how it will help , the JPA comes and mapped it to use us easily
