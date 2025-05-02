@@ -21,6 +21,7 @@ public abstract class BaseModel {
 
     @Id // this annotation makes the id property to a primary key of table
     @GeneratedValue(strategy = GenerationType.IDENTITY)         // identity means auto_increment
+    // @Column(nullable = false)
     protected long id ;
 
     @Column(nullable = false)

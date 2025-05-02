@@ -1,12 +1,16 @@
 package com.example.reviewService.Services ;
 
+import com.example.reviewService.Models.Booking;
+import com.example.reviewService.Models.Driver;
 import com.example.reviewService.Models.Review ;
+import com.example.reviewService.Repositories.BookingRepository;
+import com.example.reviewService.Repositories.DriverRepository;
 import com.example.reviewService.Repositories.ReviewRepository ;
+import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner ;
 import org.springframework.stereotype.Service ;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -18,34 +22,55 @@ public class ReviewService implements CommandLineRunner {
 
     public final ReviewRepository reviewRepository ; // this composition inject that ReviewRepository to create obj in service layer and interact with database
 
-    public ReviewService(ReviewRepository reviewRepository) {  // we have to
+    public final BookingRepository bookingRepository ;
+    public final DriverRepository driverRepository;
+
+    public ReviewService(ReviewRepository reviewRepository, BookingRepository bookingRepository,
+                         DriverRepository driverRepository) {  // we have to
         this.reviewRepository = reviewRepository;
+        this.bookingRepository = bookingRepository;
+        this.driverRepository = driverRepository;
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
 
-        System.out.println("********************************");
-        Review review = Review
-                .builder()
-                .comment("Amazing riding quality ")
-//                .createdAt(new Date())
-//                .updatedAt(new Date())   // we can avoid (we do not need to handle it by myself) this , using entity listener because jpa manage auditing related things
-                .rating(4.0)
-                .build(); // code to create plane java object , for achieving that we have to save this
-
-        reviewRepository.save(review); // this code executes SQL Query
-
-        // although we can extract / fetch / delete data also from here using this reviewRepository because it allows me methods using them we can perform operation
-
-        List<Review> reviews = reviewRepository.findAll();
-
-        for(Review r : reviews){
-            System.out.println(r.getComment());
-        }
+//        System.out.println("********************************");
+//        Review review = Review
+//                .builder()
+//                .comment("Amazing riding quality ")
+////                .createdAt(new Date())
+////                .updatedAt(new Date())   // we can avoid (we do not need to handle it by myself) this , using entity listener because jpa manage auditing related things
+//                .rating(4.0)
+//                .build(); // code to create plane java object , for achieving that we have to save this
+//
+//        reviewRepository.save(review); // this code executes SQL Query
+//
+//        // although , we can extract / fetch / delete data also from here using this reviewRepository because it allows me methods using them we can perform operation
+//
+//        List<Review> reviews = reviewRepository.findAll();
+//
+//        for(Review r : reviews){
+//            System.out.println(r.getComment());
+//        }
 
         // we can delete here
-        reviewRepository.deleteById(2L); // that 2nd inserted data at 2 id after running project here we are deleting ,after commenting above review object
+        // reviewRepository.deleteById(2L); // that 2nd inserted data at 2 id after running project here we are deleting ,after commenting above review object
+
+        List<Long> driverIds = Arrays.asList(1L,2L,3L,4L,5L);
+        List<Driver> drivers = driverRepository.findAllByIdIn(driverIds);
+
+         //  List<Booking> bookings = bookingRepository.findAllByDriverIn(drivers);  one way to execute this buildin
+
+        // 2nd way this
+
+        for(Driver driver : drivers){
+            List<Booking> bookings = driver.getBookings();
+            bookings.forEach(booking -> System.out.println(booking.getId()));
+        }
+
+
 
     }
 }
