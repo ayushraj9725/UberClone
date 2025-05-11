@@ -1,21 +1,24 @@
 package com.example.reviewService.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
+
+
 @PrimaryKeyJoinColumn(name = "passenger_review_id")
-public class PassengerReview extends Review{
+public class PassengerReview extends Review {
 
     @Column(nullable = false)
     private String passengerComment;
 
     @Column(nullable = false)
-    private float passengerRating;
+    private Float passengerRating;
+
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Booking booking ;
 
 }
