@@ -7,7 +7,6 @@ import lombok.*;
 @Setter
 @Entity
 
-
 @PrimaryKeyJoinColumn(name = "passenger_review_id")
 public class PassengerReview extends Review {
 
@@ -15,10 +14,12 @@ public class PassengerReview extends Review {
     private String passengerComment;
 
     @Column(nullable = false)
-    private Float passengerRating;
+    private Double passengerRating;
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
-    private Booking booking ;
+    // we are commenting this because the booking_review class relationship with booking extended here
+
+//    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//    @JoinColumn(nullable = false)
+//    private Booking booking ;
 
 }

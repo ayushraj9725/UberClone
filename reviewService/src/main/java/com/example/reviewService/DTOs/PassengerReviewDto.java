@@ -10,7 +10,7 @@ public class PassengerReviewDto {
 
     private String passengerComment;
 
-    private Float passengerRating;
+    private Double passengerRating;
 
     private Long bookingId ;
 

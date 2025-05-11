@@ -3,7 +3,6 @@ package com.example.reviewService.Models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 
 import java.util.Date;
@@ -19,6 +18,7 @@ import java.util.Date;
 @Table(name = "booking_review")  // using this, we can define custom name of table using java in my db
 
 // here we are adding the jsonIgnoreProperty For handling the crosscutting problem recursive fetching data
+// we can also write the custom dtos to implement this like data transferring
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","booking"})
 
 public class Review extends BaseModel{

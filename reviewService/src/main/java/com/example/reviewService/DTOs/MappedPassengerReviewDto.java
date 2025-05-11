@@ -13,7 +13,7 @@ public class MappedPassengerReviewDto {
 
     private Long passengerId ;
     private String passengerComment ;
-    private Float passengerRating;
+    private Double passengerRating;
     private Long bookingId ;
     private Date createdAt ;
     private Date updatedAt ;

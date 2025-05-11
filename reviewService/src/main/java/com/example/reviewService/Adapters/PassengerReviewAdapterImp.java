@@ -3,10 +3,8 @@ package com.example.reviewService.Adapters;
 import com.example.reviewService.DTOs.PassengerReviewDto;
 import com.example.reviewService.Models.Booking;
 import com.example.reviewService.Models.PassengerReview;
-import com.example.reviewService.Models.Review;
 import com.example.reviewService.Repositories.BookingRepository;
-import com.example.reviewService.Repositories.PassengerReviewRepository;
-import org.antlr.v4.runtime.misc.LogManager;
+
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -36,7 +34,7 @@ public class PassengerReviewAdapterImp implements PassengerReviewAdapter{
 
         pr.setPassengerRating(passengerReviewDto.getPassengerRating());
         pr.setPassengerComment(passengerReviewDto.getPassengerComment());
-        pr.setRating((double) passengerReviewDto.getPassengerRating()); // from superclass
+        pr.setRating(passengerReviewDto.getPassengerRating()); // from superclass
         pr.setComment(passengerReviewDto.getPassengerComment()); // from superclass
         pr.setBooking(booking);  // MUST NOT be null
 
