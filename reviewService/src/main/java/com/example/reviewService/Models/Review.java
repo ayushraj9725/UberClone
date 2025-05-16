@@ -12,15 +12,14 @@ import java.util.Date;
 @Builder  // this annotation helps us to use builder pattern in our project, lombok aspect this and give features to us
 @NoArgsConstructor    // in aspect of using builder annotation, we have to use this annotation both about constructor
 @AllArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
 @Entity  // this annotation helps us to use to do a logical task in module using this we are creating a real entity review table in our database
  // @Name("Booking_review")  // this will not use to named table
 @Table(name = "booking_review")  // using this, we can define custom name of table using java in my db
 
 // here we are adding the jsonIgnoreProperty For handling the crosscutting problem recursive fetching data
 // we can also write the custom dtos to implement this like data transferring
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","booking"})
 
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","booking"})
 public class Review extends BaseModel{
 
     @Column(nullable = false)  // this is ensured that the comment not be null

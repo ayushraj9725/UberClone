@@ -1,25 +1,26 @@
 package com.example.reviewService.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 
-@PrimaryKeyJoinColumn(name = "passenger_review_id")
-public class PassengerReview extends Review {
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","booking"}) // ignore the properties that are not mapped to the table, avoid or prevent from cross-cutting problem and recursion fetching data
+public class PassengerReview extends BaseModel {
 
     @Column(nullable = false)
     private String passengerComment;
 
-    @Column(nullable = false)
     private Double passengerRating;
 
-    // we are commenting this because the booking_review class relationship with booking extended here
-
-//    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//    @JoinColumn(nullable = false)
-//    private Booking booking ;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Booking booking ;
 
 }

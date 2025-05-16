@@ -20,47 +20,22 @@ public class PassengerReviewAdapterImp implements PassengerReviewAdapter{
     }
 
     @Override
-    public PassengerReview ConvertDTOPRtoB(PassengerReviewDto passengerReviewDto) throws IllegalArgumentException {
+    public PassengerReview ConvertDTOPRtoB(PassengerReviewDto passengerReviewDto) {
 
-        Optional<Booking> bookingOpt = bookingRepository.findById(passengerReviewDto.getBookingId());
-        if (bookingOpt.isEmpty())
-        {
-            throw new IllegalArgumentException("Invalid booking ID: " + passengerReviewDto.getBookingId());
-        }
-
-        Booking booking = bookingOpt.get();
-
-        PassengerReview pr = new PassengerReview();
-
-        pr.setPassengerRating(passengerReviewDto.getPassengerRating());
-        pr.setPassengerComment(passengerReviewDto.getPassengerComment());
-        pr.setRating(passengerReviewDto.getPassengerRating()); // from superclass
-        pr.setComment(passengerReviewDto.getPassengerComment()); // from superclass
-        pr.setBooking(booking);  // MUST NOT be null
-
-
-        return pr;
-
-
-       /* try {
+        try {
             Optional<Booking> booking = this.bookingRepository.findById(passengerReviewDto.getBookingId());
 
-            if (booking.isEmpty()) {
-                return null;
-            }
-
-            return PassengerReview.builder()
-                    .passengerRating(Double.valueOf(passengerReviewDto.getPassengerRating()))
+            return booking.map(value -> PassengerReview.builder()
+                    .passengerRating(passengerReviewDto.getPassengerRating())
                     .passengerComment(passengerReviewDto.getPassengerComment())
-                    .booking(booking.get())
-                    .comment(passengerReviewDto.getPassengerComment()) // from base class
-                    .rating(Double.valueOf(passengerReviewDto.getPassengerRating())) // from base class
-                    .build();
+                    .booking(value)
+                    .build()).orElse(null);
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new RuntimeException(e);
         }
-        */
+
     }
 
 
